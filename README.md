@@ -1,17 +1,13 @@
-# fast_location
+# FAST_LOCATION
 
-A new Flutter project.
+Projeto para materia de Sistemas Moveis e Distribuidos do SENAI
 
-## Getting Started
+## Como rodar o APP
 
-This project is a starting point for a Flutter application.
+# Clone o repositorio git para sua maquina local atraves do link > https://github.com/Augustogieq/fast_location_concluido.git
 
-A few resources to get you started if this is your first Flutter project:
+# Rode o comando flutter pub get para instalar dependencias
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Va ao arquivo pubspec.yaml e clique cntrl + S para garantir que ele baixou as bibliotecas necessarias para o projeto
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-as
+# Rode o metodo main utilizando a maquina virutal de android de sua preferencia
