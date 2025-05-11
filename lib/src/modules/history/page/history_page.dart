@@ -1,0 +1,104 @@
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+class HistoryPage extends StatefulWidget {
+  const HistoryPage({super.key});
+
+  @override
+  State<HistoryPage> createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
+  late Box<String> box;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBox();
+  }
+
+  Future<void> _loadBox() async {
+    box = await Hive.openBox<String>('history');
+    setState(() {}); // Atualiza a UI quando a box for carregada
+  }
+
+  void _clearHistory() async {
+    await box.clear();
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Histórico de Endereços"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete_outline),
+            tooltip: "Limpar histórico",
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Confirmar"),
+                  content: const Text("Deseja apagar todo o histórico?"),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("Cancelar"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        _clearHistory();
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Apagar"),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: ValueListenableBuilder(
+          valueListenable: box.listenable(),
+          builder: (context, Box<String> box, _) {
+            if (box.isEmpty) {
+              return const Center(
+                child: Text(
+                  "Nenhum histórico encontrado.",
+                  style: TextStyle(fontSize: 16),
+                ),
+              );
+            }
+
+            return ListView.builder(
+              itemCount: box.length,
+              itemBuilder: (context, index) {
+                String? endereco = box.getAt(index);
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 6),
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: ListTile(
+                    leading: const Icon(Icons.location_history),
+                    title: Text(
+                      endereco ?? '',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
