@@ -6,8 +6,6 @@ import 'package:fast_location/src/shared/storage/hive_config.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
 import 'package:hive/hive.dart';
-import 'package:fast_location/src/modules/home/page/home_page.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Home(),
+      home: InitialPage(),
     );
   }
 }
